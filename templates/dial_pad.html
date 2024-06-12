@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dial Pad</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+            overflow: hidden;
+        }
+        .modal {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: move;
+        }
+        .dial-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .key-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        #display-number {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #call-btn,
+        #correction-btn,
+        #clear-btn {
+            width: 100%;
+            height: 50px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #call-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #09ff00de;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        #correction-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #ff9100;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        #clear-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        #call_container {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="modal">
+        <input type="text" id="display-number" readonly>
+        <div class="dial-pad">
+            <button class="key-btn" onclick="sendDigit('1')">1</button>
+            <button class="key-btn" onclick="sendDigit('2')">2<br><small>A B C</small></button>
+            <button class="key-btn" onclick="sendDigit('3')">3<br><small>D E F</small></button>
+            <button class="key-btn" onclick="sendDigit('4')">4<br><small>G H I</small></button>
+            <button class="key-btn" onclick="sendDigit('5')">5<br><small>J K L</small></button>
+            <button class="key-btn" onclick="sendDigit('6')">6<br><small>M N O</small></button>
+            <button class="key-btn" onclick="sendDigit('7')">7<br><small>P Q R S</small></button>
+            <button class="key-btn" onclick="sendDigit('8')">8<br><small>T U V</small></button>
+            <button class="key-btn" onclick="sendDigit('9')">9<br><small>W X Y Z</small></button>
+            <button class="key-btn" onclick="sendDigit('*')">*</button>
+            <button class="key-btn" onclick="sendDigit('0')">0</button>
+            <button class="key-btn" onclick="sendDigit('#')">#</button>
+            <button id="clear-btn" onclick="clearDisplay()">C</button>
+            <button id="call-btn" onclick="call()">Call</button>
+            <button id="correction-btn" onclick="removeDigit()">&lt;</button>
+        </div>
+    </div>
+
+    <script src="static/js/dialer.js"></script>
+    <script src="static/js/move.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contact-list {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        .contact-list th,
+        .contact-list td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .contact-list th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .contact-list td {
+            text-align: left;
+        }
+
+        .person-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #3498db;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-modal">
+    <h1>Contact List</h1>
+    <table class="contact-list">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>SIP Address</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>sip:john.doe@example.com</td>
+                <td><div class="person-icon">&#128100;</div></td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>sip:jane.smith@example.com</td>
+                <td><div class="person-icon">&#128100;</div></td>
+            </tr>
+            <!-- Add more contacts as needed -->
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="phone-body">
+    <div class="phone-container">
+        <h1>Log</h1>
+        <ul class="history-list">
+            <li class="outgoing-call">
+                <div class="caller">065 654 5434</div>
+                <div class="call-type">Outgoing call</div>
+                <div class="call-time">13:25</div>
+                <div class="call-duration">01:35</div>
+            </li>
+            <!-- Add more list items for other call types -->
+        </ul>
+    </div>
+</body>
+</html>

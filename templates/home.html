@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Phone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .phone-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 600px;
+            background-color: #f4f4f4;
+            border-radius: 20px;
+            border: 5px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .icon-box {
+            width: 45%;
+            height: 45%;
+            display: inline-block;
+            text-align: center;
+            margin: 5px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+
+        .icon {
+            font-size: 50px;
+            line-height: 80px;
+        }
+
+        .icon-text {
+            font-size: 16px;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head content here -->
+</head>
+<body>
+
+    <!-- Phone Modal -->
+    <div class="phone-modal">
+        <!-- Modal content here -->
+        <div class="modal-content">
+            <!-- Call button -->
+            <div>
+            <div class="icon-box" style="background-color: #3498db;" onclick="redirectTo('/dial-pad')">
+                <div class="icon">&#128222;</div>
+                <div class="icon-text">Call</div>
+            </div>
+        </div>
+            <div>
+            <!-- Contacts button -->
+            <div class="icon-box" style="background-color: #2ecc71;" onclick="redirectTo('/contacts')">
+                <div class="icon">&#128100;</div>
+                <div class="icon-text">Contacts</div>
+            </div>
+        </div>
+        <div>
+            <!-- Log button -->
+            <div class="icon-box" style="background-color: #f39c12;" onclick="redirectTo('/call-history')">
+                <div class="icon">&#128221;</div>
+                <div class="icon-text">Log</div>
+            </div>
+        </div>
+        <div>
+            <!-- Exit button -->
+            <div class="icon-box" style="background-color: #e74c3c;" onclick="redirectTo('/home')">
+                <div class="icon">&#128683;</div>
+                <div class="icon-text">Queue</div>
+            </div>
+        </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button onclick="closePhoneModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Script to open and close the modal, and redirect to routes -->
+    <script>
+        function openPhoneModal() {
+            document.querySelector('.phone-modal').style.display = 'block';
+        }
+
+        function closePhoneModal() {
+            document.querySelector('.phone-modal').style.display = 'none';
+        }
+
+        function redirectTo(route) {
+            window.location.href = route;
+        }
+    </script>
+</body>
+</html>
+
