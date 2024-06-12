@@ -41,7 +41,8 @@ function register(username, password) {
     userAgent.start();
 }
 function makeCall() {
-    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    // const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const phoneNumber = "0836904730";
     // Make sure the phone number is not empty
     if (!phoneNumber) {
         alert('Please enter a phone number');
