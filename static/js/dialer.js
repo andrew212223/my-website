@@ -47,11 +47,7 @@ function makeCall() {
 }
 
 function initiateCall(phoneNumber) {
-    if (!userAgent) {
-        alert('User agent not registered. Please log in first.');
-        return;
-    }
-
+    console.log('Initiating call to', phoneNumber);
     const session = userAgent.invite(phoneNumber);
     session.on('progress', () => {
         console.log('Call in progress');
@@ -60,9 +56,9 @@ function initiateCall(phoneNumber) {
         console.log('Call accepted');
         alert('Call accepted');
     });
-    session.on('failed', () => {
-        console.log('Call failed');
-        alert('Call failed');
+    session.on('failed', (data) => {
+        console.log('Call failed with reason:', data.reason);
+        alert('Call failed: ' + data.reason);
     });
     session.on('terminated', () => {
         console.log('Call terminated');
