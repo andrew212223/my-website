@@ -9,9 +9,10 @@ if (window.AudioContext || window.webkitAudioContext) {
             const outputDevices = devices.filter(device => device.kind === 'audiooutput');
             console.log('Available output devices:', outputDevices);
 
-            // Select a specific output device (e.g., first device in the list)
-            if (outputDevices.length > 0) {
-                const selectedDeviceId = outputDevices[0].deviceId;
+            // Find the default output device if available
+            const defaultDevice = outputDevices.find(device => device.deviceId === 'default');
+            if (defaultDevice) {
+                const selectedDeviceId = defaultDevice.deviceId;
                 console.log('Selected output device:', selectedDeviceId);
 
                 // Set the audio output device for the audio context
@@ -22,6 +23,8 @@ if (window.AudioContext || window.webkitAudioContext) {
                     .catch(error => {
                         console.error('Error setting audio output:', error);
                     });
+            } else {
+                console.error('Default output device not found');
             }
         })
         .catch(error => {
@@ -30,6 +33,7 @@ if (window.AudioContext || window.webkitAudioContext) {
 } else {
     console.error('Web Audio API is not supported');
 }
+
 
 
 let userAgent = null;
