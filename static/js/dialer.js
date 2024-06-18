@@ -120,8 +120,6 @@ function initiateCall(phoneNumber) {
     const session = userAgent.invite(phoneNumber);
     session.on('progress', () => {
         console.log('Call in progress');
-        // Play the ringing sound when the call is in progress
-        playRingingSound();
     });
     session.on('accepted', () => {
         console.log('Call accepted');
