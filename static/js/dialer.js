@@ -109,6 +109,7 @@ function makeCall() {
     initiateCall(phoneNumber);
 }
 function terminateCall() {
+    stopRingingSound()
     console.log('Terminating call');
     if (userAgent && userAgent.sessions.length > 0) {
         userAgent.sessions[0].terminate();
