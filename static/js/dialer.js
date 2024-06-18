@@ -124,18 +124,21 @@ function initiateCall(phoneNumber) {
         playRingingSound();
     });
     session.on('accepted', () => {
+        stopRingingSound();
         console.log('Call accepted');
         alert('Call accepted');
         // Stop the ringing sound when the call is accepted
         stopRingingSound();
     });
     session.on('failed', () => {
+        stopRingingSound();
         console.log('Call failed');
         alert('Call failed');
         // Stop the ringing sound when the call fails
         stopRingingSound();
     });
     session.on('terminated', () => {
+        stopRingingSound();
         console.log('Call terminated');
         // Stop the ringing sound when the call is terminated
         stopRingingSound();
