@@ -4,7 +4,7 @@ if (window.AudioContext || window.webkitAudioContext) {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     // Set the audio output device to the default device
-    const selectedDeviceId = 'a29f021a9af00282864198289e101b245cf6599d7a263375aa328b4359c95b16';
+    const selectedDeviceId = 'default';
 
     // Set the audio output device for the audio context
     audioContext.setSinkId(selectedDeviceId)
