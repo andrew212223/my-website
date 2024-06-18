@@ -128,12 +128,35 @@ function makeCall() {
 }
 
 function terminateCall() {
-    stopRingingSound();
     console.log('Terminating call');
     if (userAgent && userAgent.sessions.length > 0) {
-        userAgent.sessions[0].terminate();
+        const session = userAgent.sessions[0];
+        switch (session.state) {
+            case Session.C.STATUS_NULL:
+            case Session.C.STATUS_INVITE_SENT:
+            case Session.C.STATUS_1XX_RECEIVED:
+                // An unestablished outgoing session
+                session.cancel();
+                break;
+            case Session.C.STATUS_INVITE_RECEIVED:
+                // An unestablished incoming session
+                session.reject();
+                break;
+            case Session.C.STATUS_WAITING_FOR_ANSWER:
+            case Session.C.STATUS_WAITING_FOR_ACK:
+            case Session.C.STATUS_CONFIRMED:
+                // An established session
+                session.bye();
+                break;
+            case Session.C.STATUS_TERMINATED:
+                console.log('Session is already terminated');
+                break;
+            default:
+                console.log('Unknown session state:', session.state);
+        }
     }
 }
+
 
 // Function to initiate the call
 function initiateCall(phoneNumber) {
