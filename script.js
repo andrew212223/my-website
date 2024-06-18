@@ -1,3 +1,38 @@
+// Check if the browser supports the Web Audio API
+if (window.AudioContext || window.webkitAudioContext) {
+    // Create an audio context
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Get a list of available audio output devices
+    navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+            const outputDevices = devices.filter(device => device.kind === 'audiooutput');
+            console.log('Available output devices:', outputDevices);
+
+            // Select a specific output device (e.g., first device in the list)
+            if (outputDevices.length > 0) {
+                const selectedDeviceId = outputDevices[0].deviceId;
+                console.log('Selected output device:', selectedDeviceId);
+
+                // Set the audio output device for the audio context
+                audioContext.setSinkId(selectedDeviceId)
+                    .then(() => {
+                        console.log('Audio output set to selected device');
+                    })
+                    .catch(error => {
+                        console.error('Error setting audio output:', error);
+                    });
+            }
+        })
+        .catch(error => {
+            console.error('Error enumerating devices:', error);
+        });
+} else {
+    console.error('Web Audio API is not supported');
+}
+
+// Now, continue with your existing functions and logic related to SIP calling and audio playback
+
 let userAgent;
 let ringingAudio; // Variable to hold the ringing audio element
 
@@ -102,8 +137,7 @@ function initiateCall(phoneNumber) {
 
 // Function to make the call when the button is clicked
 function makeCall() {
-    // const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const phoneNumber = "0836904730";
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
     // Make sure the phone number is not empty
     if (!phoneNumber) {
         alert('Please enter a phone number');
