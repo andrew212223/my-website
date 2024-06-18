@@ -3,38 +3,20 @@ if (window.AudioContext || window.webkitAudioContext) {
     // Create an audio context
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Get a list of available audio output devices
-    navigator.mediaDevices.enumerateDevices()
-        .then(devices => {
-            const outputDevices = devices.filter(device => device.kind === 'audiooutput');
-            console.log('Available output devices:', outputDevices);
+    // Set the audio output device to the default device
+    const selectedDeviceId = 'default';
 
-            // Find the default output device if available
-            const defaultDevice = outputDevices.find(device => device.deviceId === 'default');
-            if (defaultDevice) {
-                const selectedDeviceId = defaultDevice.deviceId;
-                console.log('Selected output device:', selectedDeviceId);
-
-                // Set the audio output device for the audio context
-                audioContext.setSinkId(selectedDeviceId)
-                    .then(() => {
-                        console.log('Audio output set to selected device');
-                    })
-                    .catch(error => {
-                        console.error('Error setting audio output:', error);
-                    });
-            } else {
-                console.error('Default output device not found');
-            }
+    // Set the audio output device for the audio context
+    audioContext.setSinkId(selectedDeviceId)
+        .then(() => {
+            console.log('Audio output set to default device');
         })
         .catch(error => {
-            console.error('Error enumerating devices:', error);
+            console.error('Error setting audio output:', error);
         });
 } else {
     console.error('Web Audio API is not supported');
 }
-
-
 
 let userAgent = null;
 let ringingAudio; // Variable to hold the ringing audio element
