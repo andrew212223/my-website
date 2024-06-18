@@ -124,21 +124,34 @@ function initiateCall(phoneNumber) {
         playRingingSound();
     });
     session.on('accepted', () => {
-        stopRingingSound();
         console.log('Call accepted');
         alert('Call accepted');
+
         // Stop the ringing sound when the call is accepted
         stopRingingSound();
+
+        // Handle the remote media stream for audio playback
+        const remoteStream = session.sessionDescriptionHandler.remoteMediaStream;
+        if (remoteStream) {
+            // Create an audio element for remote audio playback
+            const remoteAudio = new Audio();
+            remoteAudio.srcObject = remoteStream;
+            remoteAudio.play()
+                .then(() => {
+                    console.log('Remote audio playing');
+                })
+                .catch(error => {
+                    console.error('Error playing remote audio:', error);
+                });
+        }
     });
     session.on('failed', () => {
-        stopRingingSound();
         console.log('Call failed');
         alert('Call failed');
         // Stop the ringing sound when the call fails
         stopRingingSound();
     });
     session.on('terminated', () => {
-        stopRingingSound();
         console.log('Call terminated');
         // Stop the ringing sound when the call is terminated
         stopRingingSound();
