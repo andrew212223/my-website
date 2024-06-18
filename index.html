@@ -42,7 +42,14 @@
     </style>
 </head>
 <body>
+    
     <div class="login-container">
+        <h1>Test Audio</h1>
+    <button id="playSoundButton">Play Sound</button>
+    <audio id="testAudio">
+        <source src="path_to_your_audio_file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
         <h2>Login</h2>
         <form id="loginForm" onsubmit="registerUser(event)">
             <label for="username">Username:</label>
@@ -55,4 +62,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sip.js/0.15.10/sip.js"></script>
     <script src="static/js/login.js"></script>
 </body>
+<script>
+    document.getElementById('playSoundButton').addEventListener('click', function() {
+    const audioElement = document.getElementById('testAudio');
+    audioElement.play()
+        .then(() => {
+            console.log('Audio playing');
+        })
+        .catch(error => {
+            console.error('Error playing audio:', error);
+        });
+});
+</script>
 </html>
