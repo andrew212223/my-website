@@ -31,6 +31,7 @@ if (window.AudioContext || window.webkitAudioContext) {
     console.error('Web Audio API is not supported');
 }
 
+
 let userAgent = null;
 let ringingAudio; // Variable to hold the ringing audio element
 
