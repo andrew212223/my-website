@@ -4,7 +4,7 @@ if (window.AudioContext || window.webkitAudioContext) {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     // Set the audio output device to the default device
-    const selectedDeviceId = 'a29f021a9af00282864198289e101b245cf6599d7a263375aa328b4359c95b16';
+    const selectedDeviceId = 'default';
 
     // Set the audio output device for the audio context
     audioContext.setSinkId(selectedDeviceId)
@@ -20,6 +20,7 @@ if (window.AudioContext || window.webkitAudioContext) {
 
 let userAgent = null;
 let ringingAudio; // Variable to hold the ringing audio element
+let remoteAudio; // Variable to hold the remote audio element
 
 // Function to create and play the ringing sound
 function playRingingSound() {
@@ -49,6 +50,22 @@ function stopRingingSound() {
     }
 }
 
+// Function to handle remote media stream for audio playback
+function setupRemoteMedia(session) {
+    session.sessionDescriptionHandler.on('addTrack', (track) => {
+        if (track.kind === 'audio') {
+            remoteAudio = new Audio();
+            remoteAudio.srcObject = new MediaStream([track]);
+            remoteAudio.play()
+                .then(() => {
+                    console.log('Remote audio playing');
+                })
+                .catch(error => {
+                    console.error('Error playing remote audio:', error);
+                });
+        }
+    });
+}
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const storedConfiguration = sessionStorage.getItem('userAgent');
@@ -64,6 +81,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.log('User agent registration failed');
             alert('User agent registration failed. Please log in again.');
             window.location.href = 'index.html';
+        });
+
+        userAgent.on('invite', (session) => {
+            console.log('Incoming call');
+            session.on('accepted', () => {
+                console.log('Call accepted');
+                alert('Call accepted');
+
+                // Stop the ringing sound when the call is accepted
+                stopRingingSound();
+
+                // Setup remote media for audio playback
+                setupRemoteMedia(session);
+            });
         });
 
         userAgent.start();
@@ -95,40 +126,20 @@ function makeCall() {
     }
     initiateCall(phoneNumber);
 }
+
 function terminateCall() {
-    stopRingingSound()
+    stopRingingSound();
     console.log('Terminating call');
     if (userAgent && userAgent.sessions.length > 0) {
         userAgent.sessions[0].terminate();
     }
 }
+
 // Function to initiate the call
 function initiateCall(phoneNumber) {
     const session = userAgent.invite(phoneNumber);
     session.on('progress', () => {
         console.log('Call in progress');
-    });
-    session.on('accepted', () => {
-        console.log('Call accepted');
-        alert('Call accepted');
-
-        // Stop the ringing sound when the call is accepted
-        stopRingingSound();
-
-        // Handle the remote media stream for audio playback
-        const remoteStream = session.sessionDescriptionHandler.remoteMediaStream;
-        if (remoteStream) {
-            // Create an audio element for remote audio playback
-            const remoteAudio = new Audio();
-            remoteAudio.srcObject = remoteStream;
-            remoteAudio.play()
-                .then(() => {
-                    console.log('Remote audio playing');
-                })
-                .catch(error => {
-                    console.error('Error playing remote audio:', error);
-                });
-        }
     });
     session.on('failed', () => {
         console.log('Call failed');
