@@ -61,6 +61,12 @@ function makeCall() {
     // Initiate the call
     initiateCall(phoneNumber);
 }
+function terminateCall() {
+    console.log('Terminating call');
+    if (userAgent && userAgent.sessions.length > 0) {
+        userAgent.sessions[0].terminate();
+    }
+}
 
 function initiateCall(phoneNumber) {
     console.log('Initiating call to', phoneNumber);
