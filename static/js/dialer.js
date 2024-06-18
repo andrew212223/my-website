@@ -108,7 +108,12 @@ function makeCall() {
     }
     initiateCall(phoneNumber);
 }
-
+function terminateCall() {
+    console.log('Terminating call');
+    if (userAgent && userAgent.sessions.length > 0) {
+        userAgent.sessions[0].terminate();
+    }
+}
 // Function to initiate the call
 function initiateCall(phoneNumber) {
     const session = userAgent.invite(phoneNumber);
