@@ -1,6 +1,6 @@
-// script.js 
-    let userAgent; 
-    function registerUser(event) {
+let userAgent;
+
+function registerUser(event) {
     event.preventDefault(); // Prevent the default form submission
     // Get the form inputs
     const username = document.getElementById('username').value.trim();
@@ -13,19 +13,25 @@
     // Perform the registration process
     register(username, password);
 }
+
 function register(username, password) {
     const sipServer = 'wss://oxba.voiceflow.co.za:8089/ws'; // Replace with your SIP server details
     const callerURI = 'sip:1018@oxba.voiceflow.co.za'; // Replace with your SIP username and domain
     const configuration = {
         uri: callerURI,
         transportOptions: {
-	wsServers: [ 'wss://oxba.voiceflow.co.za:8089/ws'  ],
-	},
+            wsServers: ['wss://oxba.voiceflow.co.za:8089/ws'],
+        },
         authorizationUser: username,
         password: password,
         register: true
     };
     userAgent = new SIP.UA(configuration);
+
+    // Console output for debugging
+    console.log('Attempting to register with the following configuration:');
+    console.log(configuration);
+
     // Listen for registration events
     userAgent.on('registered', () => {
         console.log('User agent registered');
@@ -38,8 +44,12 @@ function register(username, password) {
         console.log('User agent registration failed');
         alert('User agent registration failed. Please check your credentials and try again.');
     });
+
+    // Console output for debugging
+    console.log('Starting user agent...');
     userAgent.start();
 }
+
 function makeCall() {
     // const phoneNumber = document.getElementById('phoneNumber').value.trim();
     const phoneNumber = "0836904730";
@@ -51,7 +61,9 @@ function makeCall() {
     // Initiate the call
     initiateCall(phoneNumber);
 }
+
 function initiateCall(phoneNumber) {
+    console.log('Initiating call to', phoneNumber);
     const session = userAgent.invite(phoneNumber);
     session.on('progress', () => {
         console.log('Call in progress');
