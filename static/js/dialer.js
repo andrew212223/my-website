@@ -37,7 +37,7 @@ let ringingAudio; // Variable to hold the ringing audio element
 // Function to create and play the ringing sound
 function playRingingSound() {
     // Create an audio element for the ringing tone
-    ringingAudio = new Audio('path_to_your_ringing_audio_file.mp3');
+    ringingAudio = new Audio('test.wav');
 
     // Set audio properties (looping and volume)
     ringingAudio.loop = true; // Loop the ringing tone
